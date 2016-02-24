@@ -25,10 +25,28 @@ module AndelaBSTProject
       end
     end
 
+    # Returns the value at a node along with its parent
+    # and children if they exist.
+    def get(v)
+      if @value > v
+        @left.get(v)
+      elsif @value < v
+        @right.get(v)
+      elsif @value == v
+        getnodes # the current node is equal to the value
+      else
+        return nil
+      end
+    end
+
+    def getnodes
+      left_node = left.to_s
+      right_node = right.to_s
+      puts "{#{left_node} => #{value} <= #{right_node} => #{parent}}"
+    end
+
     def to_s
-      ls = left.to_s
-      rs = right.to_s
-      puts "{#{ls} => #{value} <= #{rs} => #{parent}}"
+      getnodes(self)
     end
 
     def push_left(v, value)
@@ -60,5 +78,6 @@ tree.insert(15)
 tree.insert(3)
 tree.insert(8)
 tree.insert(35)
+tree.insert(14)
 
-puts tree.to_s
+puts tree.get(14)
