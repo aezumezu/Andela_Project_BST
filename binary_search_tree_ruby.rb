@@ -46,7 +46,7 @@ module AndelaBSTProject
     end
 
     def to_s
-      getnodes(self)
+      getnodes
     end
 
     def push_left(v, value)
@@ -59,10 +59,6 @@ module AndelaBSTProject
   end
   # A class to initialize the values of an empty node
   class EmptyNode
-    def get(*)
-      false
-    end
-
     def insert(*)
       false
     end
@@ -80,4 +76,4 @@ tree.insert(8)
 tree.insert(35)
 tree.insert(14)
 
-puts tree.get(14)
+puts tree.get(15)
