@@ -4,7 +4,7 @@
 module AndelaBSTProject
   # The class node to preform actions on a node
   class Node
-    attr_accessor :left, :right, :value, :parent
+    attr_accessor :left, :right, :value, :parent, :add_c
 
     def initialize(v, parent = nil)
       @value = v
@@ -56,6 +56,67 @@ module AndelaBSTProject
     def push_right(v, value)
       @right.insert(v) || self.right = Node.new(v, value)
     end
+
+    def depth_fs(num)
+      found = false
+      my_stack = []
+      track = []
+      count = 0
+      if self.value == num
+        found = true
+        my_stack.clear
+      else
+        my_stack.push(self)
+        last_add = self.value
+        track.push(self.value)
+        count += 1
+        @add_c = true if @add_C == nil
+      end
+      while my_stack.empty? == false
+        current_node = my_stack.delete_at(0)
+        track.delete_at(0)
+        if current_node.left.class != EmptyNode && \
+          current_node.left.value == num
+          found = true #
+          break
+        elsif current_node.right.class != EmptyNode && \
+          current_node.right.value == num
+          found = true #
+          break
+        end
+        puts last_add
+        puts "Count is #{count}"
+        if current_node.left.class != EmptyNode
+          my_stack.push(current_node.left)
+          track.push(current_node.left.value)
+          unless track.include? last_add
+            last_add = current_node.left.value
+            if add_c == true
+              count += 1
+              add_c = false
+            end
+          end
+        end
+        if current_node.right.class != EmptyNode
+          my_stack.push(current_node.right)
+          track.push(current_node.right.value)
+          unless track.include? last_add
+            last_add = current_node.right.value
+            if add_c == true
+              count += 1
+              add_c = false
+            end
+          end
+        end
+        puts "Count is #{count}"
+        puts last_add
+      end
+      if found == true
+        puts "#{num} is #{count} step(s) deep."
+      else
+        puts "#{num} is not in the tree."
+      end
+    end
   end
   # A class to initialize the values of an empty node
   class EmptyNode
@@ -69,11 +130,9 @@ module AndelaBSTProject
   end
 end
 
-tree = AndelaBSTProject::Node.new(10)
-tree.insert(15)
-tree.insert(3)
-tree.insert(8)
-tree.insert(35)
-tree.insert(14)
+tree = AndelaBSTProject::Node.new(20)
+tree.insert(10, 35, 5, 47, 8, 9, 38, 42)
 
-puts tree.get(15)
+#puts tree.depth_fs(9)
+
+puts tree.get(47)
