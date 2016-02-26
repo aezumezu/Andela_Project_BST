@@ -133,6 +133,6 @@ end
 tree = AndelaBSTProject::Node.new(20)
 tree.insert(10, 35, 5, 47, 8, 9, 38, 42)
 
-#puts tree.depth_fs(9)
+puts tree.get(9)
 
-puts tree.get(47)
+#puts tree.get(47)
