@@ -70,10 +70,34 @@ module AndelaBSTProject
         # puts "The right child of #{value} is #{right_child}"
       end
     end
+
+    def get_min
+      if left.get_min != false
+        return left.get_min
+      else
+        return value
+      end
+    end
+
+    def get_max
+      if right.get_max != false
+        return right.get_max
+      else
+        return value
+      end
+    end
   end
   # A class to initialize the values of an empty node
   class EmptyNode
     def get(*)
+      false
+    end
+
+    def get_min
+      false
+    end
+
+    def get_max
       false
     end
 
@@ -98,6 +122,9 @@ module AndelaBSTProject
   end
 end
 
-tree = AndelaBSTProject::Tree.new([10, 15, 3, 8, 35, 14, 26])
+tree = AndelaBSTProject::Tree.new([10, 15, 3, 8, 1, 35, 14, 26, 44])
 
 puts tree.to_s
+
+puts "The max value in the tree is: #{tree.get_max}"
+puts "The min value in the tree is: #{tree.get_min}"
