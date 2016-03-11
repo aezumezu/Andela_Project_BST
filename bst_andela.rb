@@ -35,20 +35,20 @@ module AndelaBSTProject
       elsif @value == key
         getnodes # the current node is equal to the value
       else
-        return nil
+        return "Node does not exit"
       end
     end
 
     def getnodes
       left.to_s
       right.to_s
-      puts "(#{left_child} => (#{value}) <= #{right_child}) => #{parent}"
+      "(#{left_child} => (#{value}) <= #{right_child}) => #{parent}"
     end
 
     def to_s
       # Prints the nodes in the format
       # (left_child => (node_value) <= right_child) => parent_value
-      getnodes
+      puts getnodes
     end
 
     def push_left(key, value)
@@ -75,7 +75,7 @@ module AndelaBSTProject
       if left.get_min != false
         return left.get_min
       else
-        return value
+        return "The lowest key in the tree is \'#{value}\'"
       end
     end
 
@@ -83,7 +83,7 @@ module AndelaBSTProject
       if right.get_max != false
         return right.get_max
       else
-        return value
+        return "The highest key in the tree is \'#{value}\'"
       end
     end
   end
@@ -122,9 +122,66 @@ module AndelaBSTProject
   end
 end
 
-tree = AndelaBSTProject::Tree.new([10, 15, 3, 8, 1, 35, 14, 26, 44])
+def display_menu
+  puts
+  puts "------------ Binary Search Tree Menu ------------"
+  puts "B - To Search for a node using Breadth first Search."
+  puts "D - To Search for a node using Depth first Search."
+  puts "G - To print a particular node."
+  puts "H - Get the highest(max) key in the tree."
+  puts "I - To Insert a number in the tree."
+  puts "L - Get the Lowest(min) key in the tree."
+  puts "P - Display the Tree"
+  puts "Q - To quit."
+  puts "-------------------------------------------------"
+  puts
+end
 
-puts tree.to_s
+puts "WELCOME TO THE BINARY SEARCH TREE"
+puts "TO GET STARTED, ENTER A NUMBER AND PRESS ENTER"
+puts "TO STOP ADDING NUMBERS, ENTER TWO ZEROS e.g 00"
+input = gets.chomp
+my_array = []
+my_array.push(Integer(input)) if input != "00"
+while input != "00" || my_array.empty?
+  input = gets.chomp
+  my_array.push(Integer(input)) if input != "00"
+end
+tree = AndelaBSTProject::Tree.new(my_array)
+puts "Weldone! The tree has been created."
+input = ""
+while true
+  reply = ""
+  display_menu()
+  input = gets.chomp.downcase
+  case input
+  when input = "b"
+    puts "Coming soon."
+  when input = "d"
+    puts "Coming Soon."
+  when input = "g"
+    puts "Enter node to start from."
+    reply = gets.chomp
+    if tree.get(reply.to_i) == false
+      puts "No such key found in tree"
+    else
+      puts tree.get(reply.to_i)
+    end
+  when input = "h"
+    puts tree.get_max
+  when input = "i"
+    puts "Enter a number to insert."
+    reply = Integer(gets.chomp)
+    tree.insert(reply)
+  when input = "l"
+    puts tree.get_min
+  when input = "p"
+    puts tree.to_s
+  when input = "q"
+    puts "Thank you for using the Binary Search Tree."
+    break
+  else
+    puts "Unknown request"
+  end
+end
 
-puts "The max value in the tree is: #{tree.get_max}"
-puts "The min value in the tree is: #{tree.get_min}"
